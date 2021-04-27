@@ -1,0 +1,69 @@
+function rough(){
+
+var max =500;
+var offset = 0;
+
+while (true){
+
+  var label = GmailApp.getUserLabelByName('Nutanix BB');
+  var threads=label.getThreads(offset, max);
+
+  Logger.log("there are " + threads.length + " emails in this label")
+  var activeSheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+
+  for(var i = threads.length - 1; i >=0; i--){
+    //storing the row of interest
+    var messages = threads[i].getMessages();
+
+    //n indicates which sender in the thread
+    for (var n = 0; n < messages.length; n++) {
+      var message = messages[n];
+      var senderDetails_raw=message.getPlainBody()
+
+  /*    if (senderDetails_raw.indexOf("wasn't delivered to")>-1){
+        var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("wasn't delivered to ")+20,senderDetails_raw.indexOf(" because"));
+        activeSheet.appendRow([senderDetails])
+      }
+      else if (senderDetails_raw.indexOf("** Message blocked **")>-1){
+        var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("Your message to ")+16,senderDetails_raw.indexOf(" has been blocked."));
+        activeSheet.appendRow([senderDetails])      
+      }
+      else if (senderDetails_raw.indexOf("https://products.office.com/en-us/CMSImages")>-1){
+        var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("Your message to ")+18,senderDetails_raw.indexOf(" couldn't be delivered."))
+        activeSheet.appendRow([senderDetails])      
+      }
+      else if (senderDetails_raw.indexOf("Delivery has failed to these recipients or groups:")>-1){
+        var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf(")<mailto:")+9,senderDetails_raw.indexOf(">"));
+        activeSheet.appendRow([senderDetails])  
+      }
+
+
+      else if (senderDetails_raw.indexOf("There was a temporary problem ")>-1){
+        var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("g your message to")+17,senderDetails_raw.indexOf(">"));
+        activeSheet.appendRow([senderDetails])  
+
+      }
+  */
+
+
+  activeSheet.appendRow([senderDetails_raw])  
+      
+          
+
+
+
+      //k indicates which row in the sheet is being checked for the particular n
+
+
+
+    }
+  }
+  
+  if (threads.length<max){
+    break
+  }
+  
+  offset += max;
+
+  }
+}
