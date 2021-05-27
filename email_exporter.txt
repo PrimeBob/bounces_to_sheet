@@ -31,53 +31,65 @@ while (true){
 
      //extracting the email address out of the textbody
      //bounce emails have different formats, theses are the common ones
+     //emails captured by the program will be starred
+     //personal note: i cant help but wonder if its possible to store the substring conditions in a list and make a nested loop...sure would look a lot more //prettier
      
      
      if (senderDetails_raw.indexOf("wasn't delivered to")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("wasn't delivered to ")+20,senderDetails_raw.indexOf(" because"));
         activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
       else if (senderDetails_raw.indexOf("** Message blocked **")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("Your message to ")+16,senderDetails_raw.indexOf(" has been blocked."));
-        activeSheet.appendRow([senderDetails])      
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
       else if (senderDetails_raw.indexOf("https://products.office.com/en-us/CMSImages")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("Your message to ")+18,senderDetails_raw.indexOf(" couldn't be delivered."))
-        activeSheet.appendRow([senderDetails])      
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
       else if (senderDetails_raw.indexOf(")<mailto:")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf(")<mailto:")+9,senderDetails_raw.indexOf(">"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("rfc822;")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("<")+1,senderDetails_raw.indexOf(">"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("If you do so, please include this problem report")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("<")+1,senderDetails_raw.indexOf(">"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("Domino")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("(")+1,senderDetails_raw.indexOf(")"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("Symantec")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("following addresses:")+20,senderDetails_raw.indexOf("Reason"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("This is a delivery failure not")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("-- ")+3,senderDetails_raw.indexOf("could n"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
 
       else if (senderDetails_raw.indexOf("There was a temporary problem ")>-1){
         var senderDetails=message.getPlainBody().substring(senderDetails_raw.indexOf("g your message to")+17,senderDetails_raw.indexOf(">"));
-        activeSheet.appendRow([senderDetails])  
+        activeSheet.appendRow([senderDetails])
+        GmailApp.starMessage(message)
       }
   
 
