@@ -1,0 +1,3 @@
+-This program exports emails in the "bounce" label belonging to the google account that is being logged into the particular google sheet that the script is in
+-The output is appended to whatever sheet is active
+-All emails exported this way will be "starred" in the user's inbox, as so to distingush which emails the script has missed  
